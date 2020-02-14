@@ -8,7 +8,7 @@ import scala.collection.mutable.ListBuffer
 
 class JavaCodeGenVisitor extends AbstractVisitor {
 
-  var classes = List[Class]()
+  var classes = ListBuffer[Class]()
 
   
 
@@ -23,7 +23,7 @@ class JavaCodeGenVisitor extends AbstractVisitor {
 
     for(constraint <- JavaConverters.asScalaIterator(node.constraints.iterator())) {
       val fieldName = constraint.field.prefixInv.propertyName;
-      var fType: Type = ???
+      var fType: Type = null
 
       if(constraint.cType.invocation.isInstanceOf[PrefixInv]) {
         val innerType = constraint.cType.invocation.asInstanceOf[PrefixInv].propertyName
@@ -41,9 +41,12 @@ class JavaCodeGenVisitor extends AbstractVisitor {
         fType = innerType
       }
 
-      val field = Field(Public, fType, node.name)
+      val field = Field(Public, fType, fieldName)
       fields += field
     }
+
+    val cclass = Class("", Public, node.name, fields.result())
+    classes += cclass
   }
 
 }

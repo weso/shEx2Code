@@ -1,6 +1,7 @@
 package es.weso.shex2code.java
 
 import es.weso.shexl.error.ErrorHandler
+import es.weso.shexl.parser.generated.{ShExLLexer, ShExLParser}
 import es.weso.shexl.visitor.{DefinitionsVisitor, InvocationsVisitor}
 import org.antlr.v4.runtime.{CharStreams, CommonTokenStream}
 
@@ -25,8 +26,10 @@ object SimpleVisitorTest {
     ErrorHandler.showErrors()
 
     val generator = new JavaCodeGenVisitor
+    generator.visit(ast, null)
 
     for(c <- generator.classes) {
+      println("new fileeeeee")
       c.toFile()
     }
 

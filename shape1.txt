@@ -6,9 +6,9 @@ PREFIX xsd: <http://xsdScheema.org/>
  schema:name    xsd:string;
  schema:age     xsd:integer;
  schema:id      xsd:double;
- sxhema:has     @:Car
+ schema:has     @:Car
 }
 
 :Car {
- scheema:id     xsd:string
+ schema:id     xsd:string
 }
