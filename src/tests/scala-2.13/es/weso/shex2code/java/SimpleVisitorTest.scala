@@ -1,8 +1,8 @@
 package es.weso.shex2code.java
 
-import es.weso.shexl.error.ErrorHandler
-import es.weso.shexl.parser.generated.{ShExLLexer, ShExLParser}
-import es.weso.shexl.visitor.{DefinitionsVisitor, InvocationsVisitor}
+import es.weso.shexlite.compiler.error.ErrorHandler
+import es.weso.shexlite.compiler.parser.generated.{ShExLLexer, ShExLParser}
+import es.weso.shexlite.compiler.visitor.{DefinitionsVisitor, InvocationsVisitor}
 import org.antlr.v4.runtime.{CharStreams, CommonTokenStream}
 
 object SimpleVisitorTest {
