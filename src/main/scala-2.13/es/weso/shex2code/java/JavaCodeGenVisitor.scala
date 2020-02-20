@@ -1,7 +1,7 @@
 package es.weso.shex2code.java
 
-import es.weso.shexl.ast.{PrefixInv, ShExL, ShapeDef, ShapeInv}
-import es.weso.shexl.visitor.AbstractVisitor
+import es.weso.shexlite.compiler.ast.{PrefixInvNode, ShapeExpressionsFileNode, ShapeDefNode, ShapeInvNode}
+import es.weso.shexlite.compiler.visitor.AbstractVisitor
 
 import scala.collection.JavaConverters
 import scala.collection.mutable.ListBuffer
@@ -12,21 +12,21 @@ class JavaCodeGenVisitor extends AbstractVisitor {
 
   
 
-  override def visit(node:ShExL, param:Any) = {
-    for(shapeDef <- JavaConverters.asScalaIterator(node.definitions.iterator()) if shapeDef.isInstanceOf[ShapeDef]) {
+  override def visit(node:ShapeExpressionsFileNode, param:Any) = {
+    for(shapeDef <- JavaConverters.asScalaIterator(node.definitions.iterator()) if shapeDef.isInstanceOf[ShapeDefNode]) {
       shapeDef.accept(this, param)
     }
   }
 
-  override def visit(node: ShapeDef, param: Any) = {
+  override def visit(node: ShapeDefNode, param: Any) = {
     var fields = ListBuffer[Field]()
 
     for(constraint <- JavaConverters.asScalaIterator(node.constraints.iterator())) {
       val fieldName = constraint.field.prefixInv.propertyName;
       var fType: Type = null
 
-      if(constraint.cType.invocation.isInstanceOf[PrefixInv]) {
-        val innerType = constraint.cType.invocation.asInstanceOf[PrefixInv].propertyName
+      if(constraint.cType.invocation.isInstanceOf[PrefixInvNode]) {
+        val innerType = constraint.cType.invocation.asInstanceOf[PrefixInvNode].propertyName
 
         if(innerType.toLowerCase.equals("string")) {
           fType = String
@@ -36,8 +36,8 @@ class JavaCodeGenVisitor extends AbstractVisitor {
           fType = Double
         }
 
-      } else if(constraint.cType.invocation.isInstanceOf[ShapeInv]) {
-        val innerType = ClassType(constraint.cType.invocation.asInstanceOf[ShapeInv].shapeName)
+      } else if(constraint.cType.invocation.isInstanceOf[ShapeInvNode]) {
+        val innerType = ClassType(constraint.cType.invocation.asInstanceOf[ShapeInvNode].shapeName)
         fType = innerType
       }
 
