@@ -26,3 +26,4 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.IZERTIS_GITHUB_SSH_KEY }}
       with:
          args: $SOURCE_REPO $SOURCE_BRANCH $DESTINATION_REPO $DESTINATION_BRANCH
+
