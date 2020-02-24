@@ -1,6 +1,5 @@
 package ;
 
-
 public class Car {
 
 	public String id;
