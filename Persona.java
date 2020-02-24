@@ -40,5 +40,4 @@ public class Persona {
 	public void setHas(Car has) {
 		this.has = has;
 	}
-
 }
